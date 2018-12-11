@@ -5,10 +5,11 @@ import sqlite3
 from email.mime.multipart import MIMEMultipart 
 from email.mime.text import MIMEText 
 from email.mime.base import MIMEBase 
-from email import encoders 
-import tkMessageBox
-import tkFileDialog
-from Tkinter import *
+from email import encoders
+from tkinter import messagebox
+from tkinter import filedialog
+import tkinter.messagebox
+from tkinter import *
 def mailSetup():
 	splashRoot.destroy()
 	root = Tk()
@@ -50,7 +51,7 @@ def mailSetup():
 						j+=1
 						k+=1
 				else:
-					tkMessageBox.showerror("STATUS", "No History Exist.")
+					messagebox.showerror("STATUS", "No History Exist.")
 			def searchByReceiverId():
 				con=sqlite3.Connection('mysqlite')
 				cur=con.cursor()
@@ -73,7 +74,7 @@ def mailSetup():
 						j+=1
 						k+=1
 				else:
-					tkMessageBox.showerror("STATUS", "No History Exist.")
+					messagebox.showerror("STATUS", "No History Exist.")
 			def searchByBoth():
 				con=sqlite3.Connection('mysqlite')
 				cur=con.cursor()
@@ -97,7 +98,7 @@ def mailSetup():
 						j+=1
 						k+=1
 				else:
-					tkMessageBox.showerror("STATUS", "No History Exist.")
+					messagebox.showerror("STATUS", "No History Exist.")
 			mailHistoryRoot.destroy()
 			analyticRoot=Tk()
 			analyticRoot.attributes('-zoomed', True)
@@ -183,7 +184,7 @@ def mailSetup():
 			password = e3.get()
 			subject = e4.get()
 			message = t.get("1.0","end-1c")
-			filepath = tkFileDialog.askopenfilename()
+			filepath = filedialog.askopenfilename()
 			head,filename = os.path.split(filepath)
 			e5.delete(0,END)
 			e5.insert(0,filename)
@@ -215,19 +216,19 @@ def mailSetup():
 								dateTime= str(datetime.now().strftime('%d-%m-%Y %H:%M:%S'))
 								cur.execute("insert into recordnew values(?,?,?,?)",(senderEmail,receiver,subject,dateTime))
 								con.commit()
-								tkMessageBox.showinfo("STATUS", "Email delivered Successfully with attached file.")
+								messagebox.showinfo("STATUS", "Email delivered Successfully with attached file.")
 							else:
-								tkMessageBox.showerror("STATUS", "Subject Field Empty")
+								messagebox.showerror("STATUS", "Subject Field Empty")
 						else:
-							tkMessageBox.showerror("STATUS", "Mention the FilePath Name")
+							messagebox.showerror("STATUS", "Mention the FilePath Name")
 					else:
-						tkMessageBox.showerror("STATUS", "Mention the File Name")
+						messagebox.showerror("STATUS", "Mention the File Name")
 				else:
-					tkMessageBox.showerror("STATUS", "Invalid Receiver's Email")
+					messagebox.showerror("STATUS", "Invalid Receiver's Email")
 			else:
-				tkMessageBox.showerror("STATUS", "Invalid Sender's Email")
+				messagebox.showerror("STATUS", "Invalid Sender's Email")
 		except:
-				tkMessageBox.showerror("STATUS", "Something went Wrong")
+				messagebox.showerror("STATUS", "Something went Wrong")
 	def send():
 		try:
 			senderEmail = e1.get()
@@ -253,16 +254,16 @@ def mailSetup():
 							cur.execute("insert into recordnew values(?,?,?,?)",(senderEmail,receiver,subject,dateTime))
 							con.commit()
 						except:
-							tkMessageBox.showinfo("STATUS", "History of this mail is not saved due to some internal Errors.")
-						tkMessageBox.showinfo("STATUS", "Email delivered Successfully.")
+							messagebox.showinfo("STATUS", "History of this mail is not saved due to some internal Errors.")
+						messagebox.showinfo("STATUS", "Email delivered Successfully.")
 					else:
-						tkMessageBox.showerror("STATUS", "Subject Field Empty")
+						messagebox.showerror("STATUS", "Subject Field Empty")
 				else:
-					tkMessageBox.showerror("STATUS", "Invalid Receiver's Email")
+					messagebox.showerror("STATUS", "Invalid Receiver's Email")
 			else:
-				tkMessageBox.showerror("STATUS", "Invalid Sender's Email")
+				messagebox.showerror("STATUS", "Invalid Sender's Email")
 		except:
-				tkMessageBox.showerror("STATUS", "Something went Wrong")
+				messagebox.showerror("STATUS", "Something went Wrong")
 
 	def reset():	
 		e1.delete(0,END)
